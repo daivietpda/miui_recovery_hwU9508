@@ -10,18 +10,18 @@ on init
     export EXTERNAL_STORAGE /sdcard
     export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/filterfw.jar
 
-    symlink /system/etc /etc
+#    symlink /system/etc /etc
 
 # Right now vendor lives on the same filesystem as system,
 # but someday that may change.
-    symlink /system/vendor /vendor
+#    symlink /system/vendor /vendor
     mkdir /sdcard
-    mkdir /system
-    mkdir /data
+#    mkdir /system
+#    mkdir /data
     #  DTS2012020704453   c00182898    2012/02/07   HOTA update system and cust image failed begin
-    mkdir /cust
+#    mkdir /cust
     #  DTS2012020704453   c00182898    2012/02/07   HOTA update system and cust image failed end
-    mkdir /modem
+#    mkdir /modem
     mkdir /modem/modem_image
     mkdir /modem/nvm1
     mkdir /modem/nvm2
@@ -36,9 +36,9 @@ on init
 on fs
 # mount mtd partitions
     # Mount /system rw first to give the filesystem a chance to save a checkpoint
-    mount yaffs2 mtd@system /system
-    mount yaffs2 mtd@system /system ro remount
-    mount yaffs2 mtd@userdata /data nosuid nodev
+#    mount yaffs2 mtd@system /system
+#    mount yaffs2 mtd@system /system ro remount
+#    mount yaffs2 mtd@userdata /data nosuid nodev
     mount yaffs2 mtd@cache /cache nosuid nodev
     #mount ext4 /dev/block/mmcblk0p15 /system
     #mount ext4 /dev/block/mmcblk0p15 /system ro remount
@@ -46,7 +46,7 @@ on fs
     #mount ext4 /dev/block/mmcblk0p16 /cache
     mount ext4 /dev/block/platform/hi_mci.1/by-name/cache /cache wait rw
     wait /dev/block/mmcblk0p18
-    exec /system/bin/e2fsck -p /dev/block/mmcblk0p18
+#    exec /system/bin/e2fsck -p /dev/block/mmcblk0p18
 #/* DTS2011122804252 z00192785 2011-12-29 delete */
     #mount ext4 /dev/block/mmcblk0p18 /data
 #DTS2012021301777 z00192785 2012/02/20 add vendor logo scheme begin
@@ -173,23 +173,22 @@ on property:service.adb.root=1
     restart adbd
     write /sys/class/android_usb/android0/enable 1
 
-service console /system/bin/sh
-    console
+#service console /system/bin/sh
+#   console
+#service nvm-server /system/bin/nvm_server
+#socket nvm-ctl stream 777 root root
+#    user root
+#    group root
+#    oneshot
 
-service nvm-server /system/bin/nvm_server
-socket nvm-ctl stream 777 root root
-    user root
-    group root
-    oneshot
-
-service imc_poweron /system/bin/imc_poweron
-    user root
+#service imc_poweron /system/bin/imc_poweron
+#    user root
 #    group radio cache inet misc
 #    disabled
     oneshot
 
 #DTS2011091800177 c00182898 ATcmd Server source upload begin
-service atcmdserver  /system/bin/atcmdserver
-    user root
-    oneshot
+#service atcmdserver  /system/bin/atcmdserver
+#    user root
+#    oneshot
 #DTS2011091800177 c00182898 ATcmd Server source upload end
