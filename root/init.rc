@@ -185,7 +185,7 @@ on property:service.adb.root=1
 #    user root
 #    group radio cache inet misc
 #    disabled
-    oneshot
+#    oneshot
 
 #DTS2011091800177 c00182898 ATcmd Server source upload begin
 #service atcmdserver  /system/bin/atcmdserver
